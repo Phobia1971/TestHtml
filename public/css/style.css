@@ -1,0 +1,129 @@
+body {
+  color: #999967;
+  background-color: #666666;
+}
+
+#wrapper_global {
+  position: relative;
+  width: 900px;
+  height: 700px;
+  margin: 0px auto;
+  background-color: #666666;
+}
+
+#header_wrapper {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  background-color: #cccc9a;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+#header_wrapper_logo {
+  float: left;
+  width: 600px;
+  height: 100px;
+}
+#header_wrapper_logo img {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  border-right: 1px solid #666666;
+  border-bottom: 1px solid #666666;
+}
+
+#content_wrapper {
+  position: relative;
+  background-color: blue;
+  min-height: 400px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+#central_content {
+  border: 1px solid yellow;
+  width: 75%;
+  float: left;
+  min-height: 350px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+#side_bar_right {
+  border: 1px solid white;
+  width: 24%;
+  float: right;
+}
+
+#footer_wrapper {
+  border-top: 1px solid #cccc9a;
+  position: absolute;
+  text-align: center;
+  font-size: 10px;
+  width: 100%;
+  bottom: 0px;
+}
+
+.nav_bar {
+  list-style: none;
+  text-align: center;
+  margin-top: 10px;
+}
+.nav_bar li {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  display: inline-block;
+  background-color: #cccccc;
+  border: 1px solid #666666;
+  margin: 1px;
+}
+.nav_bar li a {
+  text-decoration: none;
+  color: #666666;
+  padding: 0px 30px;
+}
+
+.header {
+  background-color: #cccccc;
+}
+
+.login_form {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  background-color: white;
+  width: 250px;
+  text-align: right;
+  padding: 5px;
+  border: 1px solid #cccc9a;
+  float: right;
+}
+
+.login_error {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  position: absolute;
+  border: 1px solid red;
+  background-color: pink;
+  color: red;
+  opacity: 0.8;
+  margin: 5px;
+  padding: 5px;
+}
+
+.clear_float {
+  clear: both;
+}

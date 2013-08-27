@@ -16,7 +16,13 @@ class Html
 
     public function css($Url)
     {
-        $this->_form["head"]["css"][] = '<link rel="stylesheet" href="'.$Url.'" style="text/stylesheet" />'.$this->_nl;
+        if(is_array($Url)) {
+            foreach ($Url as $css) {
+                $this->_form["head"]["css"][] = '<link rel="stylesheet" href="'.$css.'" style="text/stylesheet" />'.$this->_nl;
+            }
+        } else
+            $this->_form["head"]["css"][] = '<link rel="stylesheet" href="'.$Url.'" style="text/stylesheet" />'.$this->_nl;
+        
         return $this;
     }
 

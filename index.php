@@ -119,7 +119,9 @@ $meta_tags = array( "author" => "Morphius.inc",
                     "description" => "Learning the web (php, html, javascript, jquery, css)");
 
 $page = New Html("Test page");
-echo $page   ->css(URL_ROOT . "css/style.css")
-             ->meta_tags($meta_tags)
-             ->body($body)
-             ->display();
+$HTML = new Main_base_view($page);
+$HTML->set_css(array(URL_ROOT . "public/css/style.css"));
+$HTML->set_meta_tags($meta_tags);
+$HTML->load_body($body);
+$HTML->render();
+echo $HTML->parse();
