@@ -1,6 +1,11 @@
 <?PHP
 /**
-* 
+*  This autoloader class will only look one folder diep 
+*  -classes
+*         -autoloader
+*         -base
+*         -form
+*             -form(this one will not be looked in)
 */
 namespace autoloader;
 

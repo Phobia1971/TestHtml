@@ -1,12 +1,14 @@
 <?PHP
+// site define's 
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(__FILE__) . DS);
 define("CLASSES", ROOT . "libs" . DS . "classes" .DS);
 define('URL_ROOT', "http://" . $_SERVER["SERVER_NAME"] . "/TestHtml/");
 
-// Load the autoloader
+// Load the autoloader class
 include CLASSES . 'autoloader/Autoloader.class.php';
 
+// magic function 
 function __autoload($class)
 {
     $loader = New autoloader\Autoloader(CLASSES);
