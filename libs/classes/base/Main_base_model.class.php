@@ -5,7 +5,7 @@
 class Main_base_model
 {
     
-    function __construct(argument)
+    function __construct()
     {
         # code...
     }

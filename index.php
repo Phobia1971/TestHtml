@@ -3,6 +3,7 @@
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(__FILE__) . DS);
 define("CLASSES", ROOT . "libs" . DS . "classes" .DS);
+define("VIEW", ROOT . "public" . DS . "view" .DS);
 define('URL_ROOT', "http://" . $_SERVER["SERVER_NAME"] . "/TestHtml/");
 
 // Load the autoloader class
@@ -11,13 +12,23 @@ include CLASSES . 'autoloader/Autoloader.class.php';
 // magic function 
 function __autoload($class)
 {
-    $loader = New autoloader\Autoloader(CLASSES);
-    $loader->load_class($class);
+    try {
+       $loader = New autoloader\Autoloader(CLASSES);
+    if($loader->load_class($class) == false) return Null; 
+    } catch (Exception $e) {
+        echo "No class found";
+    }
+    
 }
 
 $uri = new Uri("TestHtml");
 $router = new Router($uri);
-$router->run_controler();
+try {
+    $router->run_controler();
+} catch (Exception $e) {
+    echo "Error calling class";
+}
+
 $router->run_method();
 
 Session::start();
@@ -26,61 +37,24 @@ $process             = false;
 $user                = false;
 $login_error_display = Null;
 // Process login form if it is submitted and not yet has been processed
-if($_SERVER["REQUEST_METHOD"] == "POST" && Session::check("LoggedIn") == false) 
-{
-    $process = New FormProcess;
-
-    $valid = $process->post("u_name")
-            ->validate("maxlength", 3)            
-            ->post("pword")
-            ->validate("maxlength", 3)
-            ->validate("oneNumber")
-            ->validate("oneCap")
-            ->validate("oneSymbol")
-            ->valid();
-
-    if($valid == true) {
-        $user = New UserValidation;
-        $login = "Logged In (by form)";
-        Session::add(true, "LoggedIn");
-    } else {
-        ErrorBuilder::add_rename_array(array("u_name" => "Username", "pword" => "Password"));
-        ErrorBuilder::add_data(FormError::get());
-        $login_error_display = Element::div(ErrorBuilder::parse(), Null, "login_error");
-        $process = false;       
-        $login = "Login error";
-    }
-} elseif(Session::check("LoggedIn")) {
-    // handle if a session has been found
-    // check credentails
-    $user = New UserValidation;
-    $login   = "Logged In (by session)";
-    $process = true;
-}
-
+$Login_model = new Login_model();
 // Build the login-form if not logged in
-if ($process == false) 
+if ($Login_model->verify() == false) 
 {
-    $login_form = new Form;
-    $login = $login_form->create('#', '$login', Null, "login_form", "POST")
-               ->input("text", "u_name",Null,"enter your username")
-               ->label("Username:")
-               ->input("password", "pword",Null)
-               ->label("Password:")
-               ->input("hidden", "token")
-               ->input("submit", "login","Login")
-               ->label(" ")
-               ->build();
+    include VIEW."forms".DS."login.form.php";
+    $login_error_display = $Login_model->fetch_errors();
+} else {
+    $login = "a user is logged in";
 }
-// Build html login formñññ
+// Build html login form
 
 
 // Navigation array, buttonname and links
- $nav_array = array ( "Home" => "#"
-                     ,"Content" => "#"
-                     ,"Portfolio" => "#"
-                     ,"About us" => "#"
-                     ,"Contact" => "#");    
+ $nav_array = array ( "Home"      => URL_ROOT."home"
+                     ,"Content"   => URL_ROOT."content"
+                     ,"Portfolio" => URL_ROOT."portfolio"
+                     ,"About us"  => URL_ROOT."about"
+                     ,"Contact"   => URL_ROOT."contact");    
 // Build the header div content
 
 $header_logo  = Element::div(Element::img(URL_ROOT . "images/logo_600x100.jpg"), "header_wrapper_logo");

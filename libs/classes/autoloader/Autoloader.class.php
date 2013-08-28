@@ -11,7 +11,7 @@ namespace autoloader;
 
 class Autoloader
 {
-    private $_root_classes_folder = Null;
+    static $_root_classes_folder = Null;
     static  $_subfolders          = Null;
     static  $_classes_loaded      = array();
 
@@ -20,8 +20,8 @@ class Autoloader
         if(!isset($path_classes_folder)) throw new Exception("Error: Unable to run autoloader without the path to the classes", 1);
         if(is_dir($path_classes_folder))
         {
-            $this->_root_classes_folder = $path_classes_folder;
-            if(self::$_subfolders == Null) self::_get_folders($this->_root_classes_folder);
+            self::$_root_classes_folder = $path_classes_folder;
+            if(self::$_subfolders == Null) self::_get_folders(self::$_root_classes_folder);
         }
         else
             throw new Exception("Error: Unable to use the path to the classes <br /><b>'" .$path_classes_folder."'</b>", 1);
@@ -35,25 +35,36 @@ class Autoloader
         $subpath = (!empty($subfolder_tree))?implode("\\", $subfolder_tree). "\\":Null;
 
         if(in_array($class_name, self::$_classes_loaded)) exit();
-        $loaded = false;
+        
         foreach (self::$_subfolders as $subpath) {
             // Build the 2 filenames to test
-            $normal_class = $this->_root_classes_folder.$subpath.$class_name . ".class.php";
-            $static_class = $this->_root_classes_folder.$subpath.$class_name . ".static.php";
+            $normal_class = self::$_root_classes_folder.$subpath.$class_name . ".class.php";
+            $static_class = self::$_root_classes_folder.$subpath.$class_name . ".static.php";
 
             if(is_readable($normal_class)) {
                 include $normal_class;
                 self::$_classes_loaded[$class_name] = $normal_class;
-                $loaded = true;
+                return true;
             } elseif (is_readable($static_class)) {
                 include $static_class;
                 self::$_classes_loaded[$class_name] = $static_class;
-                $loaded = true;
+                return true;
             }
         }
-        
+        return Null;
     }
 
+    static public function pre_check_controler($controler)
+    {
+        foreach (self::$_subfolders as $subpath) {
+            // Build the 2 filenames to test
+            $normal_class = self::$_root_classes_folder.$subpath.$controler . ".class.php";
+
+            if(is_readable($normal_class)) {
+                return true;
+            }
+        }
+    }
 
      private function _get_folders($dir)
         {

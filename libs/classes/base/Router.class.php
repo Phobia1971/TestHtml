@@ -17,10 +17,11 @@ class Router
     public function run_controler()
     {
         $controler = $this->_uri_class->controler()."_controler";
-        $this->_controler_class = new $controler;
-        if($this->_controler_class == false)
+        if(autoloader\Autoloader::pre_check_controler($controler))
         {
-            $this->_catch_errors[] = "Error: Unable to load page:".$this->_uri_class->controler();
+            $this->_controler_class = new $controler;
+        } else {
+            $this->_catch_errors[] = "Error: Unable to load page:".$controler;
             $this->_uri_class->controler("Error");            
             $this->_controler_class = new Error_controler;
         }
