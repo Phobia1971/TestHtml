@@ -4,7 +4,7 @@
 */
 class Main_base_controler
 {
-    static private $_navigation_buttons_array = Null;
+    static private $_url_base = Null;
     protected $_header_body = Null;
     protected $login_error_display = Null;
 
@@ -15,10 +15,16 @@ class Main_base_controler
 
     protected function _build_page_head()
     {
-        $header_logo        = Element::div(Element::img(URL_ROOT . "images/logo_600x100.jpg"), "header_wrapper_logo");
-        $header_login       = $this->_build_login();
+        $header_logo        = (Config::get("display:header_logo") == true)
+                                ?Element::div(Element::img(URL_ROOT . "images/".Config::get("site:header_logo")), "header_wrapper_logo")
+                                :Null;
+        $header_login       = (Config::get("display:login") == true)
+                                ?$this->_build_login()
+                                :Null;
         $this->clear_div    = Element::div(Null, Null, "clear_float");
-        $header_nav         = $this->_get_navigation();
+        $header_nav         = (Config::get("display:navigation") == true)
+                                ?$this->_get_navigation()
+                                :Null;
         $this->_header_body = $header_logo.$header_login.$this->clear_div.$header_nav;
     }
 
@@ -38,19 +44,18 @@ class Main_base_controler
     }
     
     protected function _build_footer()
-    {
-        $footer = "Morphius.inc &copy;".date("Y");
+    {   $ip = (Config::get("display:user_ip") == true)
+                                ?"<br/>your ip = " . $this->get_client_ip()
+                                :Null;
+        $footer = Config::get("site:builder")." &copy;".date("Y"). "by ".Config::get("site:webmaster") . $ip;
         return Element::div($footer, "footer_wrapper");             
     }
             
     protected function parse()
     {
-        $meta_tags = array( "author" => "Morphius.inc",
-                            "description" => "Learning the web (php, html, javascript, jquery, css)");
-
-        $HTML = new Main_base_view( New Html($this->page_name . " - Page") );
-        $HTML->set_css(array(URL_ROOT . "public/css/style.css"));
-        $HTML->set_meta_tags($meta_tags);
+        $HTML = new Main_base_view( New Html($this->page_name . " - ".Config::get("site:sitename")) );
+        $HTML->set_css(array(self::$_url_base . "public/css/style.css"));
+        $HTML->set_meta_tags(Config::get("site:meta_tags"));
         $HTML->load_body($this->_body);
         $HTML->render();
         echo $HTML->parse();
@@ -58,7 +63,7 @@ class Main_base_controler
     
     protected function _build_sidebar($li_name_links = Null)
     {
-        if(is_array($li_name_links)) {
+        if(is_array($li_name_links) && Config::get("display:sidebar" == true) ) {
             $ul = Element::ul($li_name_links, Null, "side_bar_ul");
             return Element::div( Element::div($ul, Null, "holder")
                                             ,"side_bar_right"
@@ -69,15 +74,19 @@ class Main_base_controler
             
     protected function _get_navigation()
     {
-        if (self::$_navigation_buttons_array != Null && is_array(self::$_navigation_buttons_array)) {
-            return Element::div(Element::ul(self::$_navigation_buttons_array, Null, "nav_bar", true), "header_wrapper_navigation");
+        $_navigation_buttons_array = Null;
+        foreach (Config::get("navigation:buttons") as $key => $value) {
+            $_navigation_buttons_array[$key] = self::$_url_base.$value;
+        }
+        if ($_navigation_buttons_array != Null && is_array($_navigation_buttons_array)) {
+            return Element::div(Element::ul($_navigation_buttons_array, Null, "nav_bar", true), "header_wrapper_navigation");
         } 
         return Null;
     }
     
-    static public function set_navigation_buttons(array $nav_bnt_links)
+    static public function set_url_base($url_base)
     {
-        self::$_navigation_buttons_array = $nav_bnt_links;
+        self::$_url_base = $url_base;
     }        
 
      private function _load_view($view_name)
@@ -85,5 +94,25 @@ class Main_base_controler
         
     }
             
+    protected function get_client_ip() 
+    {
+         $ipaddress = '';
+         if (getenv('HTTP_CLIENT_IP'))
+             $ipaddress = getenv('HTTP_CLIENT_IP');
+         else if(getenv('HTTP_X_FORWARDED_FOR'))
+             $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+         else if(getenv('HTTP_X_FORWARDED'))
+             $ipaddress = getenv('HTTP_X_FORWARDED');
+         else if(getenv('HTTP_FORWARDED_FOR'))
+             $ipaddress = getenv('HTTP_FORWARDED_FOR');
+         else if(getenv('HTTP_FORWARDED'))
+            $ipaddress = getenv('HTTP_FORWARDED');
+         else if(getenv('REMOTE_ADDR'))
+             $ipaddress = getenv('REMOTE_ADDR');
+         else
+             $ipaddress = 'UNKNOWN';
+
+         return $ipaddress; 
+    }
 
 }

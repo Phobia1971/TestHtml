@@ -1,0 +1,47 @@
+{
+    "site"     : 
+        {
+            "sitename"   : "Test Html",
+            "header_logo": "logo_600x100.jpg",
+            "email"      : "phobia.morphius@upcmail.nl",
+            "base"       : "TestHtml",
+            "builder"    : "Morphius.inc",
+            "webmaster"  : "Phobia",
+            "meta_tags"  : 
+                {
+                    "author"      : "Morphius.inc",
+                    "description" : "Learning the web (php, html, javascript, jquery, css)"
+                }
+        },
+
+    "navigation" : 
+        {
+            "buttons" :
+                { 
+                  "Home"      : "home"
+                 ,"Content"   : "content"
+                 ,"Portfolio" : "portfolio"
+                 ,"About us"  : "about"
+                 ,"Contact"   : "contact"
+                }
+        },
+
+    "database" : 
+        {
+            "type"     : "mysql",
+            "host"     : "localhost",
+            "user"     : "root",
+            "pass"     : "",
+            "database" : "testhtml"          
+        },
+
+    "display" :
+        {
+            "login"       : true,
+            "navigation"  : true,
+            "header_logo" : true,
+            "sidebar"     : true,
+            "footer"      : true,
+            "user_ip"     : false
+        }
+}

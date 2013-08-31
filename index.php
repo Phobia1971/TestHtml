@@ -4,7 +4,7 @@ define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', dirname(__FILE__) . DS);
 define("CLASSES", ROOT . "libs" . DS . "classes" .DS);
 define("VIEW", ROOT . "public" . DS . "view" .DS);
-define('URL_ROOT', "http://" . $_SERVER["SERVER_NAME"] . "/TestHtml/");
+
 
 // Load the autoloader class
 include CLASSES . 'autoloader/Autoloader.class.php';
@@ -20,19 +20,15 @@ function __autoload($class)
     }    
 }
 
-$uri = new Uri("TestHtml");
+Config::load(CLASSES."..\config\config.default.json");
+Config::load(CLASSES."..\config\config.user.json");
+define('URL_ROOT', "http://" . $_SERVER["SERVER_NAME"] . "/".Config::get("site:base")."/");
+
+$uri = new Uri(Config::get("site:base"));
 $router = new Router($uri);
 $router->run_controler();
 $router->run_method();
 
-Session::start();
+Session::start(); 
 
-
-// Navigation array, buttonname and links
- $nav_array = array ( "Home"      => URL_ROOT."home"
-                     ,"Content"   => URL_ROOT."content"
-                     ,"Portfolio" => URL_ROOT."portfolio"
-                     ,"About us"  => URL_ROOT."about"
-                     ,"Contact"   => URL_ROOT."contact");   
-
-Main_base_controler::set_navigation_buttons($nav_array); 
+Main_base_controler::set_url_base(URL_ROOT); 

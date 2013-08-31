@@ -1,0 +1,11 @@
+{
+    "display" :
+        {
+            "login"       : true,
+            "navigation"  : true,
+            "header_logo" : true,
+            "sidebar"     : true,
+            "footer"      : true,
+            "user_ip"     : false
+        }
+}
