@@ -40,13 +40,11 @@ body{
 
 #content_wrapper {
     position: relative;
-    background-color: blue;
     min-height: 400px;
     max-height: 500px;
     overflow-y: auto;
 }
 #central_content {
-    border: 1px solid yellow;
     width: 75%;
     float: left;
     min-height: 350px;
@@ -54,7 +52,7 @@ body{
     overflow-y: auto;
 }
 #side_bar_right {
-    border: 1px solid white;
+    border-left: 1px solid white;
     width: 24%;
     float: right;
 }
@@ -66,7 +64,16 @@ body{
     width: 100%;
     bottom: 0px;
 }
-
+#side_bar_right {
+    padding-left: 5px;
+}
+.side_bar_ul {
+    margin          : 0px;
+    margin-left     : 20px;
+    padding         : 0px;
+    list-style      : none;
+    text-transform  : capitalize;
+}
 .nav_bar {
     list-style: none;
     text-align: center;
@@ -88,6 +95,33 @@ body{
     background-color: $link_color;
     // height: 200px;
 }
+
+.post_container {
+    width: 90%;
+    margin: 10px auto;
+    text-align: center;
+    border: 1px solid $border_color;
+    @include border-radius(5px);
+    .post_title {
+        font-size: 26px;
+        font-weigth: bolder;
+    }
+    .post_data_wrapper{
+        background-color: $border_color;
+        color: $background_color;
+    }
+    .post_content{
+        padding: 5px;
+        text-align: left;
+    }
+    .post_data{
+        display: inline-block;
+        font-size: 12px;
+        width: auto;
+        margin: 0px 5px;
+    }
+}
+
 .login_form {
     @include border-radius(5px);
     background-color:   white;

@@ -4,47 +4,127 @@
 */
 class Main_base_view
 {
-    private $_HTML      = Null;
-    private $_body      = Null;
-    private $_meta_tags = Null;
-    private $_css       = Null;
+    
+    public $_header_body = Null;
+    protected $_url_base = Null;
 
 
-    function __construct(Html $html)
+    public function __construct($base_url)
     {
-        $this->_HTML = $html;
+        $this->_url_base    = $base_url;
+        $this->clear_div    = Element::div(Null, Null, "clear_float");
+        $this->_build_page_head();
     }
 
-    public function load_body($body)
+    protected function _build_page_head()
     {
-        $this->_body = $body;
+        $header_logo        = (Config::get("display:header_logo") == true)
+                                ?Element::div(Element::img($this->_url_base . "public/images/".Config::get("site:header_logo")), "header_wrapper_logo")
+                                :Null;
+        $header_login       = (Config::get("display:login") == true)
+                                ?$this->_build_login()
+                                :Null;
+        $this->clear_div    = Element::div(Null, Null, "clear_float");
+        $header_nav         = (Config::get("display:navigation") == true)
+                                ?$this->_get_navigation()
+                                :Null;
+        $this->_header_body = $header_logo.$header_login.$this->clear_div.$header_nav;
     }
 
-    public function set_meta_tags(array $meta_tags)
+    public function add_side_bar($side_bar)
     {
-        $this->_meta_tags = $meta_tags;
+        $this->side_bar[] = $side_bar;
     }
 
-    public function set_css($css_url)
+    protected function _build_login()
+    {        
+        // Process login form if it is submitted and not yet has been processed
+        $Login_model = new Login_model();
+        // Build the login-form if not logged in
+        if ($Login_model->verify() == false) 
+        {
+            include VIEW."forms".DS."login.include.php";
+            $this->login_error_display = $Login_model->fetch_errors();
+        } else {
+            $login = "a user is logged in";
+        }
+        return $login;
+    }
+    
+    public function _build_footer()
+    {   $ip = (Config::get("display:user_ip") == true)
+                                ?"<br/>your ip = " . $this->get_client_ip()
+                                :Null;
+        $webmaster = (Config::get("site:webmaster") != Null)
+                                ?"by ".Config::get("site:webmaster")
+                                :Null;
+
+        $footer = Config::get("site:builder")
+                             ." &copy;".date("Y")
+                             .$webmaster
+                             . $ip;
+        return Element::div($footer, "footer_wrapper");             
+    }
+            
+    public function parse($page_name)
     {
-        if(is_array($css_url)) {
-            foreach ($css_url as $css) {
-                $this->_css[] = $css;
+        $this->_build_body();
+        $HTML = new Main_base_html( New Html($page_name . " - ".Config::get("site:sitename")) );
+        $HTML->set_css(array($this->_url_base . "public/css/".Config::get("site:css_file")));
+        $HTML->set_meta_tags(Config::get("site:meta_tags"));
+        $HTML->load_body($this->_body);
+        $HTML->load_jquery_lib(Config::get("site:use_jquery"));
+        $HTML->render();
+        echo $HTML->parse();
+    }
+
+    protected function _get_navigation()
+    {
+        $_navigation_buttons_array = Null;
+        foreach (Config::get("navigation:buttons") as $key => $value) {
+            $_navigation_buttons_array[$key] = $this->_url_base.$value;
+        }
+        if ($_navigation_buttons_array != Null && is_array($_navigation_buttons_array)) {
+            return Element::div(Element::ul($_navigation_buttons_array, Null, "nav_bar", true), "header_wrapper_navigation");
+        } 
+        return Null;
+    }
+
+    protected function _build_side_bar()
+    {
+        $sidebar = Null;
+        if(isset($this->side_bar)) 
+        {
+            foreach ($this->side_bar as $sb) {
+                $sidebar .= Element::div( $sb.Element::br()
+                                    ,"side_bar_right"
+                                    );
             }
-        } else 
-            $this->_css[] = $css;
+        }
+        return $sidebar;
+    }
+            
+
+    protected function get_client_ip() 
+    {
+         $ipaddress = '';
+         if (getenv('HTTP_CLIENT_IP'))
+             $ipaddress = getenv('HTTP_CLIENT_IP');
+         else if(getenv('HTTP_X_FORWARDED_FOR'))
+             $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
+         else if(getenv('HTTP_X_FORWARDED'))
+             $ipaddress = getenv('HTTP_X_FORWARDED');
+         else if(getenv('HTTP_FORWARDED_FOR'))
+             $ipaddress = getenv('HTTP_FORWARDED_FOR');
+         else if(getenv('HTTP_FORWARDED'))
+            $ipaddress = getenv('HTTP_FORWARDED');
+         else if(getenv('REMOTE_ADDR'))
+             $ipaddress = getenv('REMOTE_ADDR');
+         else
+             $ipaddress = 'UNKNOWN';
+
+         return $ipaddress; 
     }
 
-    public function render()
-    {
-        $this->_HTML ->css($this->_css)
-                     ->meta_tags($this->_meta_tags)
-                     ->body($this->_body);
-                     
-    }
 
-    public function parse()
-    {
-        return $this->_HTML->display();
-    }
 }

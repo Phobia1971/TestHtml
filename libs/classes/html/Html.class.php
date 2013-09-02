@@ -4,8 +4,9 @@
 */
 class Html
 {
-    protected $_form = array();
-    protected $_nl   = PHP_EOL;
+    protected $_form       = array();
+    protected $_jquery_lib = Null;
+    protected $_nl         = PHP_EOL;
 
     public function __construct($title = false)
     {
@@ -32,6 +33,14 @@ class Html
         return $this;
     }
 
+    public function load_jquery_lib($load_jquery)
+    {
+        $libs = Null;
+        if($load_jquery)
+            $libs = '<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>'.$this->_nl;
+        $this->_jquery_lib = $libs;
+    }
+
     public function body($content)
     {
        $this->_form["body"] = "<body>" . $this->_nl . $content . $this->_nl . $this->_nl . "</body>" . $this->_nl;
@@ -45,6 +54,7 @@ class Html
         $display .= $this->_form["head"]["title"];
         $display .= $this->_build_meta_tags().$this->_nl."</head>".$this->_nl;
         $display .= $this->_form["body"];
+        $display .= $this->_jquery_lib;
         $display .= "</html>";
 
         return $display;

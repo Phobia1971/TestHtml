@@ -4,33 +4,36 @@
 */
 class Home_controler extends Main_base_controler
 {
-    protected $_sb   = Null;
-    protected $_body = Null;
+    protected $_sb    = Null;
+    protected $_body  = Null;
+    protected $_model = Null;
     public function __construct()
     {
-        parent::__construct();
         $this->page_name = array_shift(explode('_', __CLASS__));
+        parent::__construct($this->page_name);
+        $this->_model = new Home_model;
+        
     }
 
     public function index()
     {
-        //
-        // Build the content div
-        // 
-        $central_content = Element::div( Element::div("Central content", Null, "holder")
-                                                        ,"central_content"
-                                                        );
+        $this->clear_div    = Element::div(Null, Null, "clear_float");
+        $this->_view->last_post($this->_model->get_last_post());
+        
+        
 
-        $sb  = $this->_build_sidebar(array("Element 1","Element 2","Element 3","Element 4"));
-        $content= $central_content.$sb.$this->clear_div;
+        $this->_view->sub_main_data("Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in dui. Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia.");
+        
+        $this->_user->role = "owner";
 
-        $this->_body = Element::div(      Element::div($this->_header_body, "header_wrapper")     // $header div
-                           .Element::div($this->login_error_display.$content, "content_wrapper")   // content div
-                           .Element::div($this->_build_footer(), "footer_wrapper")     // footer div
-                     ,"wrapper_global" // div id
-                     );
+        $this->_view->add_side_bar(Element::span("User panel:",Null,"sidebar_title")
+                                                .(isset($this->_user->role)?$this->_model->build_sidebar(Config::get("role:".$this->_user->role),true)
+                                            :$this->_model->build_sidebar(Config::get("role:default"),true)));
+
+        $this->_view->add_side_bar(Element::span("Last entered posts:",Null,"sidebar_title")
+                                                .$this->_model->build_sidebar($this->_model->get_last_postnames(),true));
 
         // Build the complete html document and parse to browser
-        $this->parse();
+        $this->_view->parse($this->page_name);
     }            
 }

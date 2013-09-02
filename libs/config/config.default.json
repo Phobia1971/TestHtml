@@ -2,15 +2,17 @@
     "site"     : 
         {
             "sitename"   : "Test Html",
-            "header_logo": "logo_600x100.jpg",
-            "email"      : "phobia.morphius@upcmail.nl",
+            "css_file"   : "style.css",
+            "use_jquery" : true,
+            "header_logo": "",
+            "email"      : "nomail@somewhere.com",
             "base"       : "TestHtml",
             "builder"    : "Morphius.inc",
             "webmaster"  : "Phobia",
             "meta_tags"  : 
                 {
                     "author"      : "Morphius.inc",
-                    "description" : "Learning the web (php, html, javascript, jquery, css)"
+                    "description" : "Your little framework with cms"
                 }
         },
 
@@ -30,8 +32,8 @@
         {
             "type"     : "mysql",
             "host"     : "localhost",
-            "user"     : "root",
-            "pass"     : "",
+            "username" : "root",
+            "password" : "",
             "database" : "testhtml"          
         },
 
@@ -43,5 +45,44 @@
             "sidebar"     : true,
             "footer"      : true,
             "user_ip"     : false
+        },
+
+    "role" :
+        {
+            "default": 
+                {
+                    "register"      : "register",
+                    "lost password" : "register/password_lost",
+                    "testemonials"  : "testemonials"
+                },
+
+            "guest" : 
+                {
+                    "forum"         : "forum",
+                    "my profile"    : "user/profile",
+                    "my posts"      : "user/posts",
+                    "my mail"       : "user/mail"
+                },
+
+            "admin" :
+                {
+                    "manage posts"  : "admin/posts",
+                    "manage users"  : "admin/users",
+                    "my profile"    : "user/profile",
+                    "my posts"      : "user/posts",
+                    "my mail"       : "user/mail"
+                },
+
+            "owner" :
+                {
+                    "manage site"   : "admin/site",
+                    "manage posts"  : "admin/posts",
+                    "manage users"  : "admin/users",
+                    "my profile"    : "user/profile",
+                    "my posts"      : "user/posts",
+                    "my mail"       : "user/mail"
+                }
+
+
         }
 }

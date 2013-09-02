@@ -1,4 +1,21 @@
 {
+    "site"     : 
+        {
+            "sitename"   : "Test Html",
+            "css_file"   : "style.css",
+            "use_jquery" : true,
+            "header_logo": "logo_600x100.jpg",
+            "email"      : "phobia.morphius@upcmail.nl",
+            "base"       : "TestHtml",
+            "builder"    : "Morphius.inc",
+            "webmaster"  : "Phobia",
+            "meta_tags"  : 
+                {
+                    "author"      : "Morphius.inc",
+                    "description" : "Learning the web (php, html, javascript, jquery, css)"
+                }
+        },
+        
     "display" :
         {
             "login"       : true,
