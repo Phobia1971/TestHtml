@@ -5,9 +5,9 @@
 class Home_view extends Main_base_view
 {
     
-    function __construct($url)
+    function __construct()
     {
-        parent::__construct($url);
+        parent::__construct();
     }
 
     public function last_post(array $last_post)

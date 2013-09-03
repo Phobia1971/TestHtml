@@ -8,12 +8,12 @@ class Home_model extends Main_base_model
     public function __construct()
     {
         parent::__construct();
+        // start instance and store database connection
         $this->start_database();
     }
 
-    //SELECT * FROM mytable ORDER BY id DESC LIMIT 1
-    //select("User", array("id","name", "password"), "WHERE id=:id and password=:password", array(":id" => $id, ":password" => $password), 1)
-    public function get_last_post()
+
+     public function get_last_post()
     {
         $last_post = self::$_db->select("posts", array(), Null, array(),1);
         return (is_array($last_post[0])?$last_post[0]:array());

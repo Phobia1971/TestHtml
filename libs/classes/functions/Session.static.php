@@ -22,16 +22,16 @@ class Session
             if($subkey == Null)
                 $_SESSION[$key] = $data;
             else
-                $SESSION[$key][$subkey] = $data;
+                $_SESSION[$key][$subkey] = $data;
         }
     }
 
-    static public function check($key, $subkey = Null)
+    static public function fetch($key, $subkey = Null)
     {
         if(empty($subkey))
-            return isset($_SESSION[$key]);
+            return (isset($_SESSION[$key])?$_SESSION[$key]:False);
         else
-            return isset($_SESSION[$key][$subkey]);
+            return (isset($_SESSION[$key][$subkey])?$_SESSION[$key][$subkey]:False);
     }
 
     static public function remove($key, $subkey = Null)

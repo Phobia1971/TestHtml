@@ -59,8 +59,8 @@ class FormProcess
     {
         if(isset($_POST[$posted_field])) {
             $this->_post_fields[$posted_field] = $_POST[$posted_field];
-            $this->_current_post             = $posted_field;
-            $this->_current_post_type        = 'post';
+            $this->_current_post               = $posted_field;
+            $this->_current_post_type          = 'post';
         }
         return $this;
     }
@@ -93,7 +93,7 @@ class FormProcess
                 include 'form/File_validator.class.php';
                 $this->_validator_files = File_Validator;
             } 
-            $error = $this->_validator_files->{$validator}($this->_current_post, $arg);
+            $error = $this->_validator_files->{$validator}($this->_post_fields[$this->_current_post], $arg);
             if($error) 
                 {
                     $this->_errors_found = true;
@@ -104,7 +104,7 @@ class FormProcess
                 include 'form/Post_validator.class.php';
                 $this->_validator_post = New Post_Validator;
             }
-            $error = $this->_validator_post->{$validator}($this->_current_post, $arg);
+            $error = $this->_validator_post->{$validator}($this->_post_fields[$this->_current_post], $arg);
             if($error) 
                 {
                     $this->_errors_found = true;

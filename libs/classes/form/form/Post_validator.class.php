@@ -94,17 +94,18 @@ class Post_validator
     public function oneSymbol($data) {
         if( !preg_match("#\W+#", $data) ) {
     return "String must include at least one symbol!";
-}
+        }
     }
     
     public function noSpaces($data) {
         if( preg_match("#\s#", $data) ) {
     return "String can not have a space!";
-}
+        }
     }
 
-    public function Token($data, $arg) {
-        if ($data != $arg)
+    public function token($data, $arg) {
+        if ($data != $arg) {
             return "Illegal sumbit atempt of the form";
+        }
     }
 }
