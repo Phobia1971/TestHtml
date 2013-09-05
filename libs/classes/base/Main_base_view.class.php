@@ -4,9 +4,10 @@
 */
 class Main_base_view
 {
-    static public $_url_base = Null;
-    public  $_header_body    = Null;
-    private $_login          = Null;
+    static public $_url_base        = Null;
+    public  $_header_body           = Null;
+    private $_login                 = Null;
+    protected $login_error_display  = Null;
 
 
     public function __construct()
@@ -52,7 +53,7 @@ class Main_base_view
 
     public function _build_footer()
     {   $ip = (Config::get("display:user_ip") == true)
-                                ?"<br/>your ip = " . $this->get_client_ip()
+                                ?"<br/>your $ip = " . Server::client_ip()
                                 :Null;
         $webmaster = (Config::get("site:webmaster") != Null)
                                 ?"by ".Config::get("site:webmaster")
@@ -102,28 +103,5 @@ class Main_base_view
         }
         return $sidebar;
     }
-
-
-    protected function get_client_ip()
-    {
-         $ipaddress = '';
-         if (getenv('HTTP_CLIENT_IP'))
-             $ipaddress = getenv('HTTP_CLIENT_IP');
-         else if(getenv('HTTP_X_FORWARDED_FOR'))
-             $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
-         else if(getenv('HTTP_X_FORWARDED'))
-             $ipaddress = getenv('HTTP_X_FORWARDED');
-         else if(getenv('HTTP_FORWARDED_FOR'))
-             $ipaddress = getenv('HTTP_FORWARDED_FOR');
-         else if(getenv('HTTP_FORWARDED'))
-            $ipaddress = getenv('HTTP_FORWARDED');
-         else if(getenv('REMOTE_ADDR'))
-             $ipaddress = getenv('REMOTE_ADDR');
-         else
-             $ipaddress = 'UNKNOWN';
-
-         return $ipaddress;
-    }
-
 
 }

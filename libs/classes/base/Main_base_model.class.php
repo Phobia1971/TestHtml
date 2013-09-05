@@ -8,11 +8,6 @@ class Main_base_model
 
     function __construct()
     {
-        # code...
-    }
-
-    protected static function start_database()
-    { 
         if(self::$_db == Null) self::$_db = new Database( Config::get("database:type")
                                                          ,Config::get("database:host")
                                                          ,Config::get("database:database")
