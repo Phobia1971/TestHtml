@@ -32,7 +32,7 @@ class  UserValidation
         if(is_array($user_data) && $session == false)
         {
             return self::validate_user($user_data["u_name"],$user_data["pword"]);
-        } 
+        }
         elseif($session == true)
         {
             return self::validate_session($user_data["hash_login"]);
@@ -60,16 +60,16 @@ class  UserValidation
                 $new_hash_salt  = Hash::create_salt(128,true);
                 $new_hash_pass  = Hash::create("sha256", $password);
                 $new_hash_login = Hash::create("sha256", Server::client_ip() , microtime());
-                
+
                 self::$_DBO->update("user", "WHERE email =:email", array(":email" => $user_name), array("hash_salt" => $new_hash_salt
                                                                                                             ,"hash_pass" => $new_hash_pass
                                                                                                             ,"hash_token" => $new_hash_login));
                 self::$_user['email']      = $user_name;
                 self::$_user['user_id']    = $user_data[0]["user_id"];
                 self::$_user['hash_login'] = $new_hash_login;
-                self::$_user['profile']    = new profile(self::$_user['user_id']);
-
-
+                $Profile = new $Profile(self::$_user['user_id']);
+                //self::$_user['profile']    = 
+                Person::create(self::$_user);
                 echo "All okey!!!";
                 return true;
             }
@@ -84,6 +84,7 @@ class  UserValidation
             $new_hash_login = Hash::create("sha256", Server::client_ip() , microtime());
             self::$_DBO->update("user", "WHERE hash_token =:hash", array("hash" => $hash_login), array("hash_token" => $new_hash_login));
             self::$_user['hash_login'] = $new_hash_login;
+            Person::create(self::$_user);
             return true;
         }
     }

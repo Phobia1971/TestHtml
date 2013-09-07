@@ -4,9 +4,10 @@
 */
 class Router 
 {
-    private $_uri_class       = Null;
-    private $_controler_class = Null;
-    private $_method_class    = Null;
+    static private $_controler = Null;
+    private $_uri_class        = Null;
+    private $_controler_class  = Null;
+    private $_method_class     = Null;
     private $_catch_errors     = Null;
 
     public function __construct(Uri $uri)
@@ -16,7 +17,9 @@ class Router
 
     public function run_controler()
     {
-        $controler = $this->_uri_class->controler()."_controler";
+        self::$_controler = $this->_uri_class->controler();
+        $controler = self::$_controler."_controler";
+        
         if(autoloader\Autoloader::pre_check_controler($controler))
         {
             $this->_controler_class = new $controler;
@@ -44,5 +47,11 @@ class Router
         } else {
             $this->_controler_class->process($this->_catch_errors);
         } 
+    }       
+
+    static public function controler()
+    {
+       return self::$_controler; 
     }
+
 }

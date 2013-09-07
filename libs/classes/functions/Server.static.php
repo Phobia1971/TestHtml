@@ -58,14 +58,16 @@ class Server
         return $_SERVER["SERVER_NAME"];
     }
 
-    static public function http()
+    static public function http($port = Null)
     {
-       return "http://".$_SERVER["SERVER_NAME"];
+        if($port != Null) $port = ":".$port;
+       return "http://".$_SERVER["SERVER_NAME"] . $port . "/";
     }
 
-    static public function https()
+    static public function https($port = Null)
     {
-       return "https://".$_SERVER["SERVER_NAME"];
+        if($port != Null) $port = ":".$port;
+       return "https://".$_SERVER["SERVER_NAME"] . $port . "/";
     }
 
     /**

@@ -1,30 +1,28 @@
 <?PHP
 /**
-* 
+*
 */
-class Config
+class Person
 {
-    static private $_config = Null;
-    
-    static public function load($path_to_config_file)
+    static private $_person_data = Null;
+
+    static public function create(array $person_data)
     {
-        if(is_readable($path_to_config_file)) {
-            $string        = file_get_contents($path_to_config_file);
-            if(is_array(self::$_config))
-                self::$_config = array_merge(self::$_config, json_decode($string,true));
-            else
-                self::$_config = json_decode($string,true);
-        } else {
-            echo "Unable to load config file from: $path_to_config_file";
-        }
+       self::$_person_data = $person_data;
     }
 
+    static public function add($data, $key, $subkey = Null)
+    {
+        if($subkey == Null)
+            self::$_person_data[$key] = $data;
+        else
+            self::$_person_data[$key][$subkey] = $data;
+    }
 
     static public function get($data_path)
     {
-        
         if(is_array($data_path)) {
-            $looper = self::$_config;
+            $looper = self::$_person_data;
             $length = count($data_path) - 1;
             for ($i=0; $i <= $length ; $i++) {
                 if(isset($looper[$data_path[$i]])){

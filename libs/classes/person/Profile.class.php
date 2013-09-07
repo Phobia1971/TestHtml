@@ -1,12 +1,12 @@
 <?PHP
 /**
-*
+* 
 */
-class Profile
+class Person
 {
-
-    function __construct($user_id = false)
+    
+    function __construct($data = Null)
     {
-
+        
     }
 }

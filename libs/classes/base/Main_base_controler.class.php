@@ -21,6 +21,12 @@ class Main_base_controler
         $this->_view->_build_page_head();
     }
 
+    public function logout()
+    {
+        Session::destroy();
+        header("Location:" . self::$_url_base);
+    }
+
     
     static public function set_url_base($url_base)
     {

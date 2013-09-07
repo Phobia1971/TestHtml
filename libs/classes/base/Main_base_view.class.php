@@ -11,9 +11,10 @@ class Main_base_view
 
 
     public function __construct()
-    {        
+    {
+
         $this->clear_div    = Element::div(Null, Null, "clear_float");
-        
+
     }
 
     public function _build_page_head()
@@ -43,12 +44,12 @@ class Main_base_view
         // Build the login-form if not logged in
         if ($Login_model->verify() == false)
         {
-            $login = $Login_model->login_form("#");
+            $this->_login              = $Login_model->login_form("#");
             $this->login_error_display = $Login_model->fetch_errors();
         } else {
-            $login = "a user is logged in";
+            $this->_login              = Element::span("Welcome " . Person::get("first_name") . " " . Person::get("last_name"),"login_user_name");
+            $this->_login             .= Element::span(Element::a(self::$_url_base . "/" . Router::controler() . "/logout", "Log Out"));
         }
-        $this->_login = $login;
     }
 
     public function _build_footer()

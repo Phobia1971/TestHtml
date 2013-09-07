@@ -5,6 +5,7 @@
 class Session
 {
     static private $_starrted = Null;
+    static private $_keys_set = Null;
 
     static public function start()
     {
@@ -20,9 +21,15 @@ class Session
     {
         if(!empty($data) && !empty($key)) {
             if($subkey == Null)
+            {
                 $_SESSION[$key] = $data;
+                self::$_keys_set[] = $key;
+            }
             else
+            {
                 $_SESSION[$key][$subkey] = $data;
+                self::$_keys_set[] = $key;
+            }
         }
     }
 
@@ -59,10 +66,12 @@ class Session
     static public function destroy()
     {
         if(self::$_starrted == true) {
-            if(session_destroy() == true) {
-                self::$_starrted = Null;
-                return true;
+            foreach (self::$_keys_set as $key) {
+                unset($_SESSION[$key]);
             }
+            session_destroy();
+            self::$_starrted = Null;
+            return true;
         }
     }
 } // End of the Class

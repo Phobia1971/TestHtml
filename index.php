@@ -20,7 +20,7 @@ function __autoload($class)
 Config::load(CLASSES."..\config\config.default.json");
 Config::load(CLASSES."..\config\config.user.json");
 // define the website root url
-define('URL_ROOT', Server::http() . "/" . Config::get("site:base")."/");
+define('URL_ROOT', Server::http() . Config::get("site:base")."/");
 // set the website base url to the classes
 Main_base_controler::set_url_base(URL_ROOT);
 // strip and read uri
