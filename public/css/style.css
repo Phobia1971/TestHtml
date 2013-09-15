@@ -100,6 +100,9 @@ body {
   color: #666666;
   padding: 0px 30px;
 }
+.nav_bar li a:hover {
+  color: #75890c;
+}
 
 .header {
   background-color: #cccccc;
@@ -123,6 +126,17 @@ body {
 .post_container .post_data_wrapper {
   background-color: #cccc9a;
   color: #666666;
+}
+.poster_title_link {
+  text-decoration: none;
+  color: #666666;
+}
+.post_title_link, .side_bar_ul a {
+  text-decoration: none;
+  color: #cccc9a;
+}
+.poster_title_link:hover, .post_title_link:hover, .side_bar_ul a:hover{
+  color: #75890c;
 }
 .post_container .post_content {
   padding: 5px;

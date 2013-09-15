@@ -22,7 +22,7 @@ class Home_model extends Main_base_model
         $last_post = self::$_db->select("posts", array(), Null, array(),5);
         $return = Null;
         foreach ($last_post as $key => $value) {
-                $return[$value["title"]] = "forum/post/".str_replace(" ", "_", $value["title"]);
+                $return[$value["title"]] = "post/view/" . strtolower($value["user_nick"]) . "/" . strtolower(str_replace(" ", "-", $value["title"]));
              }     
         return $return;
     }

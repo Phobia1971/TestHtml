@@ -6,7 +6,7 @@ class Main_base_controler
 {
     protected $_view = Null;
 
-    static protected $_url_base = Null;
+    static public $_url_base = Null;
     protected $_header_body = Null;
     protected $login_error_display = Null;
 

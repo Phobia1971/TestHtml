@@ -67,9 +67,10 @@ class  UserValidation
                 self::$_user['email']      = $user_name;
                 self::$_user['user_id']    = $user_data[0]["user_id"];
                 self::$_user['hash_login'] = $new_hash_login;
-                $Profile = new $Profile(self::$_user['user_id']);
+                $Profile = new Profile(self::$_user['user_id']);
                 //self::$_user['profile']    = 
                 Person::create(self::$_user);
+                Person::add($Profile->get(), "profile");
                 echo "All okey!!!";
                 return true;
             }

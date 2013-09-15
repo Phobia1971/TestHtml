@@ -12,10 +12,11 @@ class Home_view extends Main_base_view
 
     public function last_post(array $last_post)
     {
-        $post_title = Element::span($last_post["title"], Null,"post_title");
-
-        $user_nick   = Element::p("Posted by: ".ucfirst($last_post["user_nick"]),Null,"post_data");
-        $user_posted = Element::p($last_post["posted"],Null,"post_data");
+        $title_link  = Element::a("post/view/" . strtolower($last_post["user_nick"]) . "/" .strtolower(str_replace(" ", "-", $last_post["title"])),$last_post["title"],Null, "post_title_link");
+        $post_title  = Element::span($title_link, Null,"post_title");
+        $poster_link = Element::a("post/poster/" . strtolower($last_post["user_nick"]), ucfirst($last_post["user_nick"]),Null,"poster_title_link");
+        $user_nick   = Element::p("Posted by: ". $poster_link,Null,"post_data");
+        $user_posted = Element::p(Strings::format_date($last_post["posted"]),Null,"post_data");
         $user_view   = Element::p("views: ".$last_post["view"],Null,"post_data");
         $user_reply  = Element::p("repleis: ".$last_post["reply"],Null,"post_data");
         $post_data   = Element::div($user_nick.$user_posted.$user_reply.$user_view, Null,"post_data_wrapper");

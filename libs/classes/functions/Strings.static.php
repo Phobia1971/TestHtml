@@ -44,6 +44,12 @@ class Strings {
             return Null;
     }
 
+    static public function format_date($date, $format = "d-m-Y H:i:s")
+    {
+        $datetime  = strtotime($date);
+        return date($format, $datetime);
+    }
+
     static public function get_part($start, $length=Null) {
         if(empty($start) == true) return Null;
         if($length == Null || is_numeric($length) == False) {
