@@ -4,7 +4,8 @@
 */
 class Post_view extends Main_base_view
 {
-    private $mockup = Null;
+    private $mockup     = Null;
+    private $pagination = Null;
     function __construct()
     {
         parent::__construct();
@@ -26,6 +27,11 @@ class Post_view extends Main_base_view
         $post_text   = Element::div($requested_post["content"], Null, "post_content");
 
         $this->post = Element::div($post_title.$post_data.$post_text, Null,"post_container");
+    }
+
+    public function pagination($element)
+    {
+        $this->pagination = $element;
     }
 
     public function post_replies($repleis_array)
@@ -67,6 +73,7 @@ class Post_view extends Main_base_view
     public function _build_body()
     {
         $content = Element::div( Element::div($this->post
+                                            .$this->pagination
                                             .$this->mockup
                                             , Null
                                             , "holder")

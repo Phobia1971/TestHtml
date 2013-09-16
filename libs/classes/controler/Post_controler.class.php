@@ -35,6 +35,10 @@ class Post_controler extends Main_base_controler
 
     public function view($data)
     {
+        Pagination::set_total_entries(1110);
+        if(isset($data[2]))Pagination::set_page_on($data[2]);
+        Pagination::set_base_url(self::$_url_base . "post/view/" . $data[0] . "/" . $data[1]);
+
         $this->clear_div     = Element::div(Null, Null, "clear_float");
         $requested_post_data = $this->_model->get_request_post($data[0],$data[1]);
         $this->_view->requested_post($requested_post_data);
@@ -42,6 +46,7 @@ class Post_controler extends Main_base_controler
         $repleis = New Repleis($this->_model->get_repleis($requested_post_data["post_id"]));
 
         $this->_view->post_replies($repleis->get_repleis());
+        $this->_view->Pagination(Pagination::get_data());
 
         $this->_user->role = Person::get("role");
         $this->_view->add_side_bar(Element::span("User panel:",Null,"sidebar_title")
