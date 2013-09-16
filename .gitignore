@@ -1,7 +1,7 @@
 ######################
 ## exclude sass folder
 ######################
-TestHtml/sass_css/*
+TestHtml/sass_css
 .gitattributes
 .gitignore
 
