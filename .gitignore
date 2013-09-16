@@ -1,3 +1,10 @@
+######################
+## exclude sass folder
+######################
+TestHtml/sass_css/*
+.gitattributes
+.gitignore
+
 #################
 ## Eclipse
 #################
