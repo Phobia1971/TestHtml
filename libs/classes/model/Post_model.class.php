@@ -19,7 +19,7 @@ class Post_model extends Main_base_model
      public function get_request_post($nick, $title)
     {
         $db_title = str_replace("-", " ", $title);
-        $post = self::$_db->select("posts", array(), "WHERE user_nick = :user_nick AND title = :title", array(":user_nick" => $nick, ":title" => $db_title),1);
+        $post = self::$_db->select("posts", array(), "WHERE user_nick = :user_nick AND title = :title ORDER BY posted DESC", array(":user_nick" => $nick, ":title" => $db_title),1);
         return (is_array($post[0])?$post[0]:array());
     }
 
@@ -33,9 +33,9 @@ class Post_model extends Main_base_model
         return $return;
     }
 
-    public function get_repleis($post_id)
+    public function get_repleis($post_id, $start, $limit)
     {
-        $repleis = self::$_db->select("reply", array(), "WHERE post_id = :post_id", array(":post_id" => $post_id));
+        $repleis = self::$_db->select("reply", array(), "WHERE post_id = :post_id", array(":post_id" => $post_id), $limit, $start);
         return $repleis;
     }
 }

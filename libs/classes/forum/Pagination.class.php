@@ -63,7 +63,7 @@ class Pagination
     static private function _create_next()
     {
         if(self::$_page_on <= self::$_num_pages - 1 )
-            self::$_pagination_data["next"] = self::_create_link(self::$_page_on["now"] + 1, "Next", "page_button");
+            self::$_pagination_data["next"] = self::_create_link(self::$_page_on + 1, "Next", "page_button");
     }
 
     static private function _create_before()

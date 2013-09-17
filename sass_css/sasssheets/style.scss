@@ -7,7 +7,7 @@ $font_color:          #999967;
 $link_color:          #CCCCCC;
 $background_color:    #666666;
 $border_color:        #CCCC9A;    
-
+$hover:               #75890c;
 body{
     color: $font_color;
     background-color: $background_color;
@@ -16,7 +16,7 @@ body{
 #wrapper_global {    
     position: relative;
     width:              900px;
-    height:             700px;
+    height:             790px;
     margin:             0px auto;
     background-color:   $background-color;
 }
@@ -41,14 +41,14 @@ body{
 #content_wrapper {
     position: relative;
     min-height: 400px;
-    max-height: 500px;
+    max-height: 700px;
     overflow-y: auto;
 }
 #central_content {
     width: 75%;
     float: left;
     min-height: 350px;
-    max-height: 400px;
+    max-height: 650px;
     overflow-y: auto;
 }
 #side_bar_right {
@@ -74,6 +74,29 @@ body{
     list-style      : none;
     text-transform  : capitalize;
 }
+
+.poster_title_link{
+    text-decoration: none;
+    color: $background_color;
+}
+.poster_title_link:hover{
+        color: $hover;
+    }
+.post_title_link{
+    text-decoration: none;
+    color: $link_color;
+}
+.post_title_link:hover{
+        color: $hover;
+    }
+.side_bar_ul a{
+    text-decoration: none;
+    color: $link_color;   
+}
+.side_bar_ul a:hover{
+    color: $hover;
+}
+
 .nav_bar {
     list-style: none;
     text-align: center;
@@ -89,11 +112,44 @@ body{
             color: $background_color;
             padding: 0px 30px;
         }
+        a.hover{
+            color: $hover;
+        }
     }
 }
 .header {
     background-color: $link_color;
     // height: 200px;
+}
+
+.pagination {
+    text-align: right;
+    width: 90%;
+    margin: 10px auto;
+    a{
+        text-decoration: none;
+    }
+    a:hover{
+        color: $hover;
+    }
+    .page_active{
+        border: 1px solid $border_color;
+        background-color: $border_color;
+        @include border-radius(5px);
+        padding: 4px;
+        color: $background_color;
+    }
+    .page_inactive{
+        padding: 4px;
+        color: $link_color;
+    }
+    .page_button{
+        border: 1px solid $link_color;
+        background-color: $border_color;
+        @include border-radius(5px);
+        padding: 4px 10px;
+        color: $background_color;
+    }
 }
 
 .post_container {
@@ -113,6 +169,12 @@ body{
     .post_content{
         padding: 5px;
         text-align: left;
+        overflow: hidden;
+        max-height: 100px;    
+    }
+    .post_content:hover{
+        overflow-y: auto;
+        max-height: 300px;
     }
     .post_data{
         display: inline-block;

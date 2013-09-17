@@ -15,6 +15,11 @@
                     "description" : "Learning the web (php, html, javascript, jquery, css)"
                 }
         },
+
+    "pagination" :
+        {
+            "displayed_per_page" : 4
+        },
         
     "display" :
         {

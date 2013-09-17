@@ -16,6 +16,11 @@
                 }
         },
 
+    "pagination" :
+        {
+            "displayed_per_page" : 10
+        },
+
     "navigation" : 
         {
             "buttons" :

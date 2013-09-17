@@ -6,7 +6,7 @@ body {
 #wrapper_global {
   position: relative;
   width: 900px;
-  height: 700px;
+  height: 790px;
   margin: 0px auto;
   background-color: #666666;
 }
@@ -40,7 +40,7 @@ body {
 #content_wrapper {
   position: relative;
   min-height: 400px;
-  max-height: 500px;
+  max-height: 700px;
   overflow-y: auto;
 }
 
@@ -48,7 +48,7 @@ body {
   width: 75%;
   float: left;
   min-height: 350px;
-  max-height: 400px;
+  max-height: 650px;
   overflow-y: auto;
 }
 
@@ -79,6 +79,33 @@ body {
   text-transform: capitalize;
 }
 
+.poster_title_link {
+  text-decoration: none;
+  color: #666666;
+}
+
+.poster_title_link:hover {
+  color: #75890c;
+}
+
+.post_title_link {
+  text-decoration: none;
+  color: #cccccc;
+}
+
+.post_title_link:hover {
+  color: #75890c;
+}
+
+.side_bar_ul a {
+  text-decoration: none;
+  color: #cccccc;
+}
+
+.side_bar_ul a:hover {
+  color: #75890c;
+}
+
 .nav_bar {
   list-style: none;
   text-align: center;
@@ -100,12 +127,50 @@ body {
   color: #666666;
   padding: 0px 30px;
 }
-.nav_bar li a:hover {
+.nav_bar li a.hover {
   color: #75890c;
 }
 
 .header {
   background-color: #cccccc;
+}
+
+.pagination {
+  text-align: right;
+  width: 90%;
+  margin: 10px auto;
+}
+.pagination a {
+  text-decoration: none;
+}
+.pagination a:hover {
+  color: #75890c;
+}
+.pagination .page_active {
+  border: 1px solid #cccc9a;
+  background-color: #cccc9a;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  padding: 4px;
+  color: #666666;
+}
+.pagination .page_inactive {
+  padding: 4px;
+  color: #cccccc;
+}
+.pagination .page_button {
+  border: 1px solid #cccccc;
+  background-color: #cccc9a;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  padding: 4px 10px;
+  color: #666666;
 }
 
 .post_container {
@@ -127,20 +192,15 @@ body {
   background-color: #cccc9a;
   color: #666666;
 }
-.poster_title_link {
-  text-decoration: none;
-  color: #666666;
-}
-.post_title_link, .side_bar_ul a {
-  text-decoration: none;
-  color: #cccc9a;
-}
-.poster_title_link:hover, .post_title_link:hover, .side_bar_ul a:hover{
-  color: #75890c;
-}
 .post_container .post_content {
   padding: 5px;
   text-align: left;
+  overflow: hidden;
+  max-height: 100px;
+}
+.post_container .post_content:hover {
+  overflow-y: auto;
+  max-height: 300px;
 }
 .post_container .post_data {
   display: inline-block;

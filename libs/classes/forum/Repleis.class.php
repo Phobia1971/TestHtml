@@ -7,6 +7,7 @@ class Repleis
     private $_repleis       = Null;
     private $_reply_profile = array();
     private $_DBO           = Null;
+    private $_profile_loaded = array();
 
     public function __construct($reply_array)
     {
@@ -34,9 +35,17 @@ class Repleis
             
     private function _load_profile($nick_name)
     {
-        $nick = strtolower($nick_name);
-        $profile = $this->_DBO->select("profile", array(), "WHERE user_name = :user_name", array(":user_name" => $nick),1);
-        return (is_array($profile[0])?$profile[0]:array());
+        if(isset($this->_profile_loaded[$nick_name]))
+        {
+            return $this->_profile_loaded[$nick_name];
+        }
+        else
+        {
+            $nick = strtolower($nick_name);
+            $profile = $this->_DBO->select("profile", array(), "WHERE user_name = :user_name", array(":user_name" => $nick),1);
+            $this->_profile_loaded[$nick_name] = $profile[0];
+            return (is_array($profile[0])?$profile[0]:array());
+        }
     }
             
 

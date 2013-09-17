@@ -72,8 +72,8 @@ class Post_view extends Main_base_view
 
     public function _build_body()
     {
-        $content = Element::div( Element::div($this->post
-                                            .$this->pagination
+        $content = Element::div( Element::div($this->pagination
+                                            .$this->post
                                             .$this->mockup
                                             , Null
                                             , "holder")
