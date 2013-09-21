@@ -4,7 +4,7 @@
 */
 class Config
 {
-    static private $_config = Null;
+    static private $_config          = Null;
     
     static public function load($path_to_config_file)
     {
@@ -17,8 +17,23 @@ class Config
         } else {
             echo "Unable to load config file from: $path_to_config_file";
         }
+
     }
 
+    static public function add_base_url($url)
+    {
+       foreach (self::get("add_url") as $value) {
+            $keys = explode(":", $value);
+           foreach (self::get($value) as $subkey => $value) {
+               self::$_config[$keys[0]][$keys[1]][$subkey] = $url . $value;
+           }
+       }
+    }
+
+    static public function show()
+    {
+        return self::$_config;
+    }
 
     static public function get($data_path)
     {

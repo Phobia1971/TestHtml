@@ -13,6 +13,12 @@ class Html
         if($title) {
             $this->_form["head"]["title"] = "<title>".$title."</title>".$this->_nl;
         }
+        $this->_form["head"]["favicon"] = Null;
+    }
+
+    public function favicon($path)
+    {
+       $this->_form["head"]["favicon"] = '<link rel="icon" type="image/png" href="'.$path.'" />'.$this->_nl;
     }
 
     public function css($Url)
@@ -52,6 +58,7 @@ class Html
         $display  = "<!DOCTYPE html>".$this->_nl."<html>".$this->_nl."<head>".$this->_nl;
         $display .= $this->_build_css().$this->_nl;
         $display .= $this->_form["head"]["title"];
+        $display .= $this->_form["head"]["favicon"];
         $display .= $this->_build_meta_tags().$this->_nl."</head>".$this->_nl;
         $display .= $this->_form["body"];
         $display .= $this->_jquery_lib;

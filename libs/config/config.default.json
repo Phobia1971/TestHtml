@@ -52,11 +52,20 @@
             "user_ip"     : false
         },
 
+        "add_url" :
+        {
+            "add1"       : "navigation:buttons",
+            "add2"       : "role:default",
+            "add3"       : "role:guest",
+            "add4"       : "role:admin",
+            "add5"       : "role:owner"
+        },
+
     "role" :
         {
             "default": 
                 {
-                    "register"      : "register",
+                    "register"      : "register/forum",
                     "lost password" : "register/password_lost",
                     "testemonials"  : "testemonials"
                 },

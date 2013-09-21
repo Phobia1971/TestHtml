@@ -79,7 +79,7 @@ class Element
      */
     static function a($link, $text, $id = Null, $class = Null)
     {
-        return '<a'.self::_id($id).self::_class($class).' href="'.$link.'" title="'.$text.'" >'.$text.'</a>';
+        return '<a'.self::_id($id).self::_class($class).' href="'. $link.'" title="'.$text.'" >'.$text.'</a>';
     }
     /**
      * Create a p-tag dynamicly 

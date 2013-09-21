@@ -2,7 +2,8 @@
     "site"     : 
         {
             "sitename"   : "Test Html",
-            "css_file"   : "style.css",
+            "css_file"   : "style.css", 
+            "css_theme"  : "color_theme_1.css",
             "use_jquery" : true,
             "header_logo": "logo_600x100.jpg",
             "email"      : "phobia.morphius@upcmail.nl",

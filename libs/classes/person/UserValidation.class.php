@@ -27,6 +27,7 @@ class  UserValidation
         if(is_string($user_data))
         {
             $user_data = self::uncloack($user_data);
+            self::$_user = $user_data;
             $session = true;
         }
         if(is_array($user_data) && $session == false)
@@ -67,11 +68,11 @@ class  UserValidation
                 self::$_user['email']      = $user_name;
                 self::$_user['user_id']    = $user_data[0]["user_id"];
                 self::$_user['hash_login'] = $new_hash_login;
+                self::$_user['role']       = $user_data[0]["role"];
                 $Profile = new Profile(self::$_user['user_id']);
-                //self::$_user['profile']    = 
                 Person::create(self::$_user);
                 Person::add($Profile->get(), "profile");
-                echo "All okey!!!";
+                Person::create_avatar();
                 return true;
             }
         }
@@ -84,8 +85,12 @@ class  UserValidation
             // TODO: update login_hash with new hash
             $new_hash_login = Hash::create("sha256", Server::client_ip() , microtime());
             self::$_DBO->update("user", "WHERE hash_token =:hash", array("hash" => $hash_login), array("hash_token" => $new_hash_login));
+            self::$_user               = $user_data[0];
             self::$_user['hash_login'] = $new_hash_login;
+            $Profile = new Profile(self::$_user['user_id']);
             Person::create(self::$_user);
+            Person::add($Profile->get(), "profile");
+            Person::create_avatar();
             return true;
         }
     }

@@ -25,6 +25,11 @@ class Main_base_html
         $this->_meta_tags = $meta_tags;
     }
 
+    public function set_favicon($path)
+    {
+        $this->_HTML->favicon($path);
+    }
+
     public function set_css($css_url)
     {
         if(is_array($css_url)) {

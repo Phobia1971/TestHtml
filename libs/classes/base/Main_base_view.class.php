@@ -44,11 +44,12 @@ class Main_base_view
         // Build the login-form if not logged in
         if ($Login_model->verify() == false)
         {
-            $this->_login              = $Login_model->login_form("#");
+            $this->_login              = $Login_model->login_form(Server::http().Server::uri());
             $this->login_error_display = $Login_model->fetch_errors();
         } else {
-            $this->_login              = Element::span("Welcome " . Person::get("first_name") . " " . Person::get("last_name"),"login_user_name");
-            $this->_login             .= Element::span(Element::a(self::$_url_base . "/" . Router::controler() . "/logout", "Log Out"));
+            $avatar = Element::img(self::$_url_base . "public/images/".Person::get("avatar:midi"));
+            $this->_login              = Element::span($avatar . " " . "Welcome " . Person::get("profile:first_name") . " " . Person::get("profile:last_name"),"login_user_name");
+            $this->_login             .= Element::div(Element::a(self::$_url_base . "/" . Router::controler() . "/logout", "Log Out"),Null,"div_btn");
         }
     }
 
@@ -69,9 +70,10 @@ class Main_base_view
 
     public function parse($page_name)
     {
-        $this->_build_body();
+        $this->_build_body();        
         $HTML = new Main_base_html( New Html($page_name . " - ".Config::get("site:sitename")) );
         $HTML->set_css(array(self::$_url_base . "public/css/".Config::get("site:css_file")));
+        $HTML->set_favicon(self::$_url_base . "public/images/".Person::get("avatar:mini"));
         $HTML->set_meta_tags(Config::get("site:meta_tags"));
         $HTML->load_body($this->_body);
         $HTML->load_jquery_lib(Config::get("site:use_jquery"));
@@ -81,14 +83,7 @@ class Main_base_view
 
     protected function _get_navigation()
     {
-        $_navigation_buttons_array = Null;
-        foreach (Config::get("navigation:buttons") as $key => $value) {
-            $_navigation_buttons_array[$key] = self::$_url_base.$value;
-        }
-        if ($_navigation_buttons_array != Null && is_array($_navigation_buttons_array)) {
-            return Element::div(Element::ul($_navigation_buttons_array, Null, "nav_bar", true), "header_wrapper_navigation");
-        }
-        return Null;
+        return Element::div(Element::ul(Config::get("navigation:buttons"), Null, "nav_bar", true), "header_wrapper_navigation");
     }
 
     protected function _build_side_bar()

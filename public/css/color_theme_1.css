@@ -1,0 +1,101 @@
+body {
+  color: #999967;
+  background-color: #e9d4b3;
+}
+
+#wrapper_global {
+  background-color: #e9d4b3;
+}
+
+#header_wrapper {
+  background-color: #cccc9a;
+}
+
+#header_wrapper_logo img {
+  border-right: 1px solid #e9d4b3;
+  border-bottom: 1px solid #e9d4b3;
+}
+
+#side_bar_right {
+  border-left: 1px solid white;
+}
+
+#footer_wrapper {
+  border-top: 1px solid #cccc9a;
+}
+
+.poster_title_link {
+  color: #e9d4b3;
+}
+
+.poster_title_link:hover {
+  color: #75890c;
+}
+
+.post_title_link {
+  color: #cccccc;
+}
+
+.post_title_link:hover {
+  color: #75890c;
+}
+
+.side_bar_ul a {
+  color: #cccccc;
+}
+
+.side_bar_ul a:hover {
+  color: #75890c;
+}
+
+.nav_bar li {
+  background-color: #cccccc;
+  border: 1px solid #e9d4b3;
+  margin: 1px;
+}
+.nav_bar li a {
+  color: #e9d4b3;
+}
+.nav_bar li a.hover {
+  color: #75890c;
+}
+
+.header {
+  background-color: #cccccc;
+}
+
+.pagination a:hover {
+  color: #75890c;
+}
+.pagination .page_active {
+  border: 1px solid #cccc9a;
+  background-color: #cccc9a;
+  color: #e9d4b3;
+}
+.pagination .page_inactive {
+  color: #cccccc;
+}
+.pagination .page_button {
+  border: 1px solid #cccccc;
+  background-color: #cccc9a;
+  color: #e9d4b3;
+}
+
+.post_container {
+  border: 1px solid #cccc9a;
+}
+.post_container .post_data_wrapper {
+  background-color: #cccc9a;
+  color: #e9d4b3;
+}
+
+.login_form {
+  background-color: white;
+  border: 1px solid #cccc9a;
+}
+
+.login_error {
+  border: 1px solid red;
+  background-color: pink;
+  color: red;
+}

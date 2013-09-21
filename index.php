@@ -21,6 +21,7 @@ Config::load(CLASSES."..\config\config.default.json");
 Config::load(CLASSES."..\config\config.user.json");
 // define the website root url
 define('URL_ROOT', Server::http() . Config::get("site:base")."/");
+Config::add_base_url(URL_ROOT);
 // set the website base url to the classes
 Main_base_controler::set_url_base(URL_ROOT);
 // strip and read uri

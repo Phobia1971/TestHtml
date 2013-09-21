@@ -21,6 +21,9 @@ body {
   padding: 5px;
   margin-bottom: 10px;
 }
+#header_wrapper #login_user_name {
+  padding: 3px 10px;
+}
 
 #header_wrapper_logo {
   float: left;
@@ -67,8 +70,31 @@ body {
   bottom: 0px;
 }
 
-#side_bar_right {
+#login_user_name {
   padding-left: 5px;
+}
+#login_user_name img {
+  vertical-align: top;
+}
+
+.div_btn {
+  width: auto;
+  float: right;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  display: block;
+  background-color: #cccccc;
+  border: 1px solid #666666;
+}
+.div_btn a {
+  padding: 3px 10px;
+  text-decoration: none;
+}
+.div_btn a:hover {
+  color: #75890c;
 }
 
 .side_bar_ul {

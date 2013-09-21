@@ -105,7 +105,7 @@ class Server
      */
     static public function uri()
     {
-        return $_SERVER["REQUEST_URI"];
+        return ltrim($_SERVER["REQUEST_URI"],"/");
     }
 
     /**
@@ -122,6 +122,11 @@ class Server
     static public function user_agent()
     {
         return $_SERVER["HTTP_USER_AGENT"];
+    }
+
+    static public function self()
+    {
+        return $_SERVER['PHP_SELF'];
     }
 
     static public function doc_root()
